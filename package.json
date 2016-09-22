@@ -1,17 +1,17 @@
 {
-  "name": "gulp-starter",
+  "name": "timberman-clone",
   "version": "1.0.0",
-  "description": "A simple starter kit for frontend projects using gulp for builds.",
+  "description": "A browser based clone of Timberman.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evanlask/gulp-starter.git"
+    "url": "git+https://github.com/evanlask/timberman-clone.git"
   },
   "author": "Evan Lask",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/evanlask/gulp-starter/issues"
+    "url": "https://github.com/evanlask/timberman-clone/issues"
   },
-  "homepage": "https://github.com/evanlask/gulp-starter#readme",
+  "homepage": "https://github.com/evanlask/timberman-clone#readme",
   "engines": {
     "node": ">=0.12.15"
   },

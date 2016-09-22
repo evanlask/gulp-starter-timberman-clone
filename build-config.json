@@ -47,15 +47,29 @@
     "unused": true
   },
   "SCRIPT_BUNDLES": [{
-    "dest": "root.built.js",
+    "dest": "libs.built.js",
     "files": [
-      "root.js"
+      "lib/ces-browser.min.js",
+      "lib/pixi.min.js",
+      "lib/stats.min.js"
     ]
   },{
-    "dest": "folder/folder.built.js",
+    "dest": "timberman.built.js",
+    "lint": true,
     "files": [
-      "folder/folder.one.js",
-      "folder/folder.two.js"
+      "components/Dimension.js",
+      "components/PlayerControlled.js",
+      "components/Position.js",
+      "components/Rendered.js",
+      "components/Rotation.js",
+      "components/Sprite.js",
+      "components/SpriteAnimated.js",
+      "components/TilePosition.js",
+      "systems/PlayerControl.js",
+      "systems/RenderPixi.js",
+      "systems/SpriteAnimator.js",
+      "systems/TilePositionAnimator.js",
+      "TimberMan.js"
     ]
   }]
 }
