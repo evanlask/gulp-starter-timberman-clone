@@ -1,0 +1,61 @@
+{
+  "DEFAULT_TASK": "dev",
+  "PATHS": {
+    "SRC": "src",
+    "DIST": "dist",
+    "SCRIPTS": "scripts",
+    "STYLES": "styles",
+    "MEDIA": "media"
+  },
+  "PREFIX_BUILD": "build-",
+  "PREFIX_WATCH": "watch-",
+  "SASS_OPTIONS": {
+    "outputStyle": "compressed"
+  },
+  "AUTO_PREFIXER_OPTIONS": {
+    "browsers": ["last 2 versions", "ie >= 10"]
+  },
+  "HTML_MIN_OPTIONS": {
+    "removeComments": true,
+    "collapseWhitespace": true,
+    "conservativeCollapse": true,
+    "removeTagWhitespace": true,
+    "removeRedundantAttributes": true,
+    "removeEmptyAttributes": true
+  },
+  "IMAGEMIN_OPTIONS": {
+    "progressive": true,
+    "interlaced": true
+  },
+  "UGLIFY_OPTIONS": {
+    "preserveComments": "license"
+  },
+  "JSHINT_OPTIONS": {
+    "bitwise": true,
+    "browser": true,
+    "curly": true,
+    "debug": true,
+    "devel": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "globals": {},
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "undef": true,
+    "unused": true
+  },
+  "SCRIPT_BUNDLES": [{
+    "dest": "root.built.js",
+    "files": [
+      "root.js"
+    ]
+  },{
+    "dest": "folder/folder.built.js",
+    "files": [
+      "folder/folder.one.js",
+      "folder/folder.two.js"
+    ]
+  }]
+}

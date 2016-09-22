@@ -1,0 +1,39 @@
+{
+  "name": "gulp-starter",
+  "version": "1.0.0",
+  "description": "A simple starter kit for frontend projects using gulp for builds.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanlask/gulp-starter.git"
+  },
+  "author": "Evan Lask",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evanlask/gulp-starter/issues"
+  },
+  "homepage": "https://github.com/evanlask/gulp-starter#readme",
+  "engines": {
+    "node": ">=0.12.15"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "del": "^2.2.2",
+    "event-stream": "^3.3.4",
+    "glob": "^7.1.0",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-jshint": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1"
+  }
+}
