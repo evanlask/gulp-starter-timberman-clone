@@ -7,6 +7,7 @@ module.exports = function(CONFIG, gulp) {
   var concat = require('gulp-concat');
   var es = require('event-stream');
   var filter = require('gulp-filter');
+  var gulpif = require('gulp-if');
   var jshint = require('gulp-jshint');
   var path = require('path');
   var rename = require('gulp-rename');
@@ -40,10 +41,13 @@ module.exports = function(CONFIG, gulp) {
         return path.join(CONFIG.PATHS.SRC, CONFIG.PATHS.SCRIPTS, file);
       });
 
+      // Check if bundle should be linted
+      var doLint = bundle.lint === true ? true : false;
+
       // Create stream
       return gulp.src(files)
-        .pipe(jshint(CONFIG.JSHINT_OPTIONS))
-        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(gulpif(doLint, jshint(CONFIG.JSHINT_OPTIONS)))
+        .pipe(gulpif(doLint, jshint.reporter('jshint-stylish')))
         .pipe(sourcemaps.init())
         .pipe(concat(bundle.dest))
         .pipe(uglify(CONFIG.UGLIFY_OPTIONS))
