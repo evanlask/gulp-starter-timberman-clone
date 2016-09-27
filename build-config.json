@@ -54,7 +54,7 @@
   "SCRIPT_BUNDLES": [{
     "dest": "libs.built.js",
     "files": [
-      "lib/ces-browser.min.js",
+      "../../node_modules/ces/dist/ces-browser.js",
       "../../node_modules/pixi.js/bin/pixi.js",
       "../../node_modules/stats.js/build/stats.min.js"
     ]
