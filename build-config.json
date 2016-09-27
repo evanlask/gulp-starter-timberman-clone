@@ -55,8 +55,8 @@
     "dest": "libs.built.js",
     "files": [
       "lib/ces-browser.min.js",
-      "lib/pixi.min.js",
-      "lib/stats.min.js"
+      "../../node_modules/pixi.js/bin/pixi.js",
+      "../../node_modules/stats.js/build/stats.min.js"
     ]
   },{
     "dest": "timberman.built.js",

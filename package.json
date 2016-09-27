@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.16.0",
+    "ces": "0.0.4",
     "del": "^2.2.2",
     "event-stream": "^3.3.4",
     "glob": "^7.1.0",
@@ -35,6 +36,8 @@
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "jshint": "^2.9.3",
-    "jshint-stylish": "^2.2.1"
+    "jshint-stylish": "^2.2.1",
+    "pixi.js": "^4.0.2",
+    "stats.js": "^0.16.0"
   }
 }
