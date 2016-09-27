@@ -12,11 +12,11 @@ var Position = CES.Component.extend({
   // Validates arguments passed in to constructor
   validateArguments: function(x, y) {
     if(typeof x !== 'number') {
-      'x position must be a number'
+      throw 'x position must be a number';
     }
 
     if(typeof y !== 'number') {
-      'y position must be a number'
+      throw 'y position must be a number';
     }
   }
 });

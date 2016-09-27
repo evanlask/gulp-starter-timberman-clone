@@ -39,7 +39,10 @@
     "eqeqeq": true,
     "forin": true,
     "freeze": true,
-    "globals": {},
+    "globals": {
+      "PIXI": true,
+      "CES": true
+    },
     "noarg": true,
     "noempty": true,
     "nonbsp": true,

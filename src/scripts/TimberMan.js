@@ -60,7 +60,7 @@ var ANIMATIONS = {
     ],
     rate: 7
   }
-}
+};
 
 // Timberman clone
 var TimberMan = CES.Class.extend({
