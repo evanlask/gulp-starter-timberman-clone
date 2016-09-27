@@ -1,4 +1,4 @@
-var Dimension = CES.Component.extend({
+TM.Components.Dimension = CES.Component.extend({
   name: 'Dimension',
 
   // width - width of entity
@@ -20,11 +20,11 @@ var Dimension = CES.Component.extend({
     }
 
     if(width < 0) {
-      throw 'width must be greater than or equal to zero'
+      throw 'width must be greater than or equal to zero';
     }
 
     if(height < 0) {
-      throw 'height must be greater than or equal to zero'
+      throw 'height must be greater than or equal to zero';
     }
   }
 });

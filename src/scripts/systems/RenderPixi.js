@@ -1,4 +1,4 @@
-var RenderPixi = CES.System.extend({
+TM.Systems.RenderPixi = CES.System.extend({
   init: function(options) {
     this._super();
 
@@ -20,7 +20,7 @@ var RenderPixi = CES.System.extend({
   // Makes sure required options are present and of the correct type
   validateOptions: function(options) {
     // Validate containerElement option
-    if(!options.containerElement instanceof HTMLElement) {
+    if(!(options.containerElement instanceof HTMLElement)) {
       throw 'containerElement must be an HTML element';
     }
 
@@ -36,7 +36,7 @@ var RenderPixi = CES.System.extend({
 
     // Validate ready callback
     if(typeof options.onReady !== 'function') {
-      'onReady must be a function';
+      throw 'onReady must be a function';
     }
   },
 
@@ -184,7 +184,7 @@ var RenderPixi = CES.System.extend({
   },
 
   // Called on each update of the world
-  update: function(timeDelta) {
+  update: function() {
     var self = this;
 
     // Loop over all rendered entities and update
@@ -198,9 +198,10 @@ var RenderPixi = CES.System.extend({
       var spriteAnimated = entity.getComponent('SpriteAnimated');
 
       // Normal sprites
+      var texture;
       if(sprite) {
         // Check if texture needs to be updated or not
-        var texture = self.getTexture(sprite.src);
+        texture = self.getTexture(sprite.src);
         if(pixiSprite.texture !== texture) {
           pixiSprite.texture = texture;
         }
@@ -208,15 +209,14 @@ var RenderPixi = CES.System.extend({
       // Animated sprites
       else if(spriteAnimated) {
         // Check if texture needs to be updated or not
-        var texture = self.getTexture(spriteAnimated.src);
+        texture = self.getTexture(spriteAnimated.src);
         if(pixiSprite.texture !== texture) {
           pixiSprite.texture = texture;
         }
       }
       // ERROR
-      else {
-
-      }
+      //else {
+      //}
 
       // Dimension
       var dimension = entity.getComponent('Dimension');

@@ -1,4 +1,4 @@
-var Position = CES.Component.extend({
+TM.Components.Position = CES.Component.extend({
   name: 'Position',
 
   // x - x position in px (+/-)

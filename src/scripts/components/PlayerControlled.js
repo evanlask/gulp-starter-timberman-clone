@@ -1,11 +1,11 @@
-var PlayerControlled = CES.Component.extend({
+TM.Components.PlayerControlled = CES.Component.extend({
   name: 'PlayerControlled',
 
   init: function(ticksBetweenActions) {
-    this.ticksBetweenActions = ticksBetweenActions;   // Number of game ticks that have to take place between player actions
-    this.side = PlayerControlled.SIDE.RIGHT;          // Indicates which side of the tree player is on
-    this.canAct = true;                               // Indicates if the player has permission to perform an action
-    this.tickCounter = 0;                             // Number of game ticks since last action
+    this.ticksBetweenActions = ticksBetweenActions;         // Number of game ticks that have to take place between player actions
+    this.side = TM.Components.PlayerControlled.SIDE.RIGHT;  // Indicates which side of the tree player is on
+    this.canAct = true;                                     // Indicates if the player has permission to perform an action
+    this.tickCounter = 0;                                   // Number of game ticks since last action
   },
 
   move: function(side) {
@@ -33,7 +33,7 @@ var PlayerControlled = CES.Component.extend({
 });
 
 // Which side of tree is player on
-PlayerControlled.SIDE = {
+TM.Components.PlayerControlled.SIDE = {
   LEFT: 1,
   RIGHT: 2
 };

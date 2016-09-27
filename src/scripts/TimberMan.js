@@ -1,69 +1,4 @@
-// Game Configuration
-var CONFIG = {
-  STATS_ENABLED: true,
-  WIDTH: 360,
-  HEIGHT: 540,
-  GROUND_HEIGHT: 133,
-  LOG_WIDTH: 360,
-  LOG_HEIGHT: 100,
-  PLAYER_WIDTH: 147,
-  PLAYER_HEIGHT: 120,
-  PLAYER_TICKS_BETWEEN_ACTIONS: 20,
-  KEY_BINDS: {
-    LEFT: 37,
-    RIGHT: 39
-  }
-};
-
-// Texture Definitions
-var TEXTURES = {
-  BACKGROUND: 'media/7.png',
-  SKY: 'media/110.png',
-  PLAYER_LEFT_IDLE: 'media/31.png',
-  PLAYER_LEFT_IDLE_2: 'media/57.png',
-  PLAYER_LEFT_CHOP: 'media/60.png',
-  PLAYER_RIGHT_IDLE: 'media/41.png',
-  PLAYER_RIGHT_IDLE_2: 'media/39.png',
-  PLAYER_RIGHT_CHOP: 'media/43.png',
-  LOG_SPACER: 'media/35.png',
-  LOG_LEFT: 'media/33.png',
-  LOG_RIGHT: 'media/34.png'
-};
-
-// Animation Definitions
-var ANIMATIONS = {
-  PLAYER_LEFT_IDLE: {
-    frames: [
-      TEXTURES.PLAYER_LEFT_IDLE,
-      TEXTURES.PLAYER_LEFT_IDLE_2,
-    ],
-    rate: 30
-  },
-  PLAYER_LEFT_CHOP: {
-    frames: [
-      TEXTURES.PLAYER_LEFT_CHOP,
-      TEXTURES.PLAYER_LEFT_IDLE,
-    ],
-    rate: 7
-  },
-  PLAYER_RIGHT_IDLE: {
-    frames: [
-      TEXTURES.PLAYER_RIGHT_IDLE,
-      TEXTURES.PLAYER_RIGHT_IDLE_2,
-    ],
-    rate: 30
-  },
-  PLAYER_RIGHT_CHOP: {
-    frames: [
-      TEXTURES.PLAYER_RIGHT_CHOP,
-      TEXTURES.PLAYER_RIGHT_IDLE
-    ],
-    rate: 7
-  }
-};
-
-// Timberman clone
-var TimberMan = CES.Class.extend({
+TM.TimberMan = CES.Class.extend({
   init: function(containerElement) {
     // Game engine state
     this.isRunning;      // True if game loop running false if not
@@ -77,16 +12,16 @@ var TimberMan = CES.Class.extend({
 
     // Renderer needs to be initialized first so textures can be preloaded
     this.onRenderSystemReady = this.onRenderSystemReady.bind(this);
-    this.renderSystem = new RenderPixi({
+    this.renderSystem = new TM.Systems.RenderPixi({
       containerElement: containerElement,
-      width: CONFIG.WIDTH,
-      height: CONFIG.HEIGHT,
-      textures: TEXTURES,
+      width: TM.CONFIG.WIDTH,
+      height: TM.CONFIG.HEIGHT,
+      textures: TM.TEXTURES,
       onReady: this.onRenderSystemReady
     });
 
     // Optional frame statistics
-    if(CONFIG.STATS_ENABLED) {
+    if(TM.CONFIG.STATS_ENABLED) {
       this.stats = new Stats();
       this.stats.showPanel(0);
       containerElement.appendChild(this.stats.dom);
@@ -99,9 +34,9 @@ var TimberMan = CES.Class.extend({
     this.world = new CES.World();
 
     // Initialize systems (act on entities in the world)
-    this.world.addSystem(new PlayerControl(CONFIG.KEY_BINDS));
-    this.world.addSystem(new SpriteAnimator());
-    this.world.addSystem(new TilePositionAnimator());
+    this.world.addSystem(new TM.Systems.PlayerControl(TM.CONFIG.KEY_BINDS));
+    this.world.addSystem(new TM.Systems.SpriteAnimator());
+    this.world.addSystem(new TM.Systems.TilePositionAnimator());
     this.world.addSystem(renderSystem);
 
     // Start game
@@ -112,19 +47,19 @@ var TimberMan = CES.Class.extend({
   createEnvironmentEntities: function() {
     // Sky
     var sky = new CES.Entity();
-    sky.addComponent(new Dimension(CONFIG.WIDTH, CONFIG.HEIGHT));
-    sky.addComponent(new Position(0,0));
-    sky.addComponent(new Rendered());
-    sky.addComponent(new TilePosition(0, 0, -0.4, 0));
-    sky.addComponent(new Sprite(TEXTURES.SKY, true));
+    sky.addComponent(new TM.Components.Dimension(TM.CONFIG.WIDTH, TM.CONFIG.HEIGHT));
+    sky.addComponent(new TM.Components.Position(0,0));
+    sky.addComponent(new TM.Components.Rendered());
+    sky.addComponent(new TM.Components.TilePosition(0, 0, -0.4, 0));
+    sky.addComponent(new TM.Components.Sprite(TM.TEXTURES.SKY, true));
     this.world.addEntity(sky);
 
     // Background
     var background = new CES.Entity();
-    background.addComponent(new Dimension(CONFIG.WIDTH, CONFIG.HEIGHT));
-    background.addComponent(new Position(0, 0));
-    background.addComponent(new Rendered());
-    background.addComponent(new Sprite(TEXTURES.BACKGROUND));
+    background.addComponent(new TM.Components.Dimension(TM.CONFIG.WIDTH, TM.CONFIG.HEIGHT));
+    background.addComponent(new TM.Components.Position(0, 0));
+    background.addComponent(new TM.Components.Rendered());
+    background.addComponent(new TM.Components.Sprite(TM.TEXTURES.BACKGROUND));
     this.world.addEntity(background);
 
     // Birds
@@ -133,51 +68,51 @@ var TimberMan = CES.Class.extend({
   // Create player entitiy
   createPlayerEntities: function() {
     var player = new CES.Entity();
-    player.addComponent(new Dimension(CONFIG.PLAYER_WIDTH, CONFIG.PLAYER_HEIGHT));
-    player.addComponent(new PlayerControlled(CONFIG.PLAYER_TICKS_BETWEEN_ACTIONS));
-    player.addComponent(new Position(200, 375));
-    player.addComponent(new Rendered());
-    player.addComponent(new SpriteAnimated(ANIMATIONS.PLAYER_RIGHT_IDLE));
+    player.addComponent(new TM.Components.Dimension(TM.CONFIG.PLAYER_WIDTH, TM.CONFIG.PLAYER_HEIGHT));
+    player.addComponent(new TM.Components.PlayerControlled(TM.CONFIG.PLAYER_TICKS_BETWEEN_ACTIONS));
+    player.addComponent(new TM.Components.Position(200, 375));
+    player.addComponent(new TM.Components.Rendered());
+    player.addComponent(new TM.Components.SpriteAnimated(TM.ANIMATIONS.PLAYER_RIGHT_IDLE));
     this.world.addEntity(player);
   },
 
   // Create log entities
-  createLogEntities: function(count) {
+  createLogEntities: function() {
     // TODO - Dynamic generation of logs
 
     var log = new CES.Entity();
-    log.addComponent(new Dimension(CONFIG.LOG_WIDTH, CONFIG.LOG_HEIGHT));
-    log.addComponent(new Position(0, 377));
-    log.addComponent(new Rendered());
-    log.addComponent(new Sprite(TEXTURES.LOG_LEFT));
+    log.addComponent(new TM.Components.Dimension(TM.CONFIG.LOG_WIDTH, TM.CONFIG.LOG_HEIGHT));
+    log.addComponent(new TM.Components.Position(0, 377));
+    log.addComponent(new TM.Components.Rendered());
+    log.addComponent(new TM.Components.Sprite(TM.TEXTURES.LOG_LEFT));
     this.world.addEntity(log);
 
-    var log = new CES.Entity();
-    log.addComponent(new Dimension(CONFIG.LOG_WIDTH, CONFIG.LOG_HEIGHT));
-    log.addComponent(new Position(0, 277));
-    log.addComponent(new Rendered());
-    log.addComponent(new Sprite(TEXTURES.LOG_SPACER));
+    log = new CES.Entity();
+    log.addComponent(new TM.Components.Dimension(TM.CONFIG.LOG_WIDTH, TM.CONFIG.LOG_HEIGHT));
+    log.addComponent(new TM.Components.Position(0, 277));
+    log.addComponent(new TM.Components.Rendered());
+    log.addComponent(new TM.Components.Sprite(TM.TEXTURES.LOG_SPACER));
     this.world.addEntity(log);
 
-    var log = new CES.Entity();
-    log.addComponent(new Dimension(CONFIG.LOG_WIDTH, CONFIG.LOG_HEIGHT));
-    log.addComponent(new Position(0, 177));
-    log.addComponent(new Rendered());
-    log.addComponent(new Sprite(TEXTURES.LOG_RIGHT));
+    log = new CES.Entity();
+    log.addComponent(new TM.Components.Dimension(TM.CONFIG.LOG_WIDTH, TM.CONFIG.LOG_HEIGHT));
+    log.addComponent(new TM.Components.Position(0, 177));
+    log.addComponent(new TM.Components.Rendered());
+    log.addComponent(new TM.Components.Sprite(TM.TEXTURES.LOG_RIGHT));
     this.world.addEntity(log);
 
-    var log = new CES.Entity();
-    log.addComponent(new Dimension(CONFIG.LOG_WIDTH, CONFIG.LOG_HEIGHT));
-    log.addComponent(new Position(0, 77));
-    log.addComponent(new Rendered());
-    log.addComponent(new Sprite(TEXTURES.LOG_RIGHT));
+    log = new CES.Entity();
+    log.addComponent(new TM.Components.Dimension(TM.CONFIG.LOG_WIDTH, TM.CONFIG.LOG_HEIGHT));
+    log.addComponent(new TM.Components.Position(0, 77));
+    log.addComponent(new TM.Components.Rendered());
+    log.addComponent(new TM.Components.Sprite(TM.TEXTURES.LOG_RIGHT));
     this.world.addEntity(log);
 
-    var log = new CES.Entity();
-    log.addComponent(new Dimension(CONFIG.LOG_WIDTH, CONFIG.LOG_HEIGHT));
-    log.addComponent(new Position(0, -23));
-    log.addComponent(new Rendered());
-    log.addComponent(new Sprite(TEXTURES.LOG_SPACER));
+    log = new CES.Entity();
+    log.addComponent(new TM.Components.Dimension(TM.CONFIG.LOG_WIDTH, TM.CONFIG.LOG_HEIGHT));
+    log.addComponent(new TM.Components.Position(0, -23));
+    log.addComponent(new TM.Components.Rendered());
+    log.addComponent(new TM.Components.Sprite(TM.TEXTURES.LOG_SPACER));
     this.world.addEntity(log);
   },
 
@@ -204,7 +139,7 @@ var TimberMan = CES.Class.extend({
   // Game loop
   tick: function() {
     // Optional frame statistics
-    if(CONFIG.STATS_ENABLED) {
+    if(TM.CONFIG.STATS_ENABLED) {
       this.stats.begin();
     }
 
@@ -217,7 +152,7 @@ var TimberMan = CES.Class.extend({
     this.frameCount++;
 
     // Optional frame statistics
-    if(CONFIG.STATS_ENABLED) {
+    if(TM.CONFIG.STATS_ENABLED) {
       this.stats.end();
     }
 
@@ -249,6 +184,3 @@ var TimberMan = CES.Class.extend({
     this.start();
   }
 });
-
-// Initialize game
-var timberMan = new TimberMan(document.getElementById('timberman'));

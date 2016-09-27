@@ -1,4 +1,4 @@
-var SpriteAnimated = CES.Component.extend({
+TM.Components.SpriteAnimated = CES.Component.extend({
   name: 'SpriteAnimated',
 
   // Create a animated sprite

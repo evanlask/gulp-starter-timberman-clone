@@ -1,4 +1,4 @@
-var Sprite = CES.Component.extend({
+TM.Components.Sprite = CES.Component.extend({
   name: 'Sprite',
   init: function(src, tiled) {
     this.src = src;

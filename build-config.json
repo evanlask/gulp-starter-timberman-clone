@@ -37,11 +37,13 @@
     "debug": true,
     "devel": true,
     "eqeqeq": true,
-    "forin": true,
+    "expr": true,
     "freeze": true,
     "globals": {
       "PIXI": true,
-      "CES": true
+      "CES": true,
+      "TM": true,
+      "Stats": true
     },
     "noarg": true,
     "noempty": true,
@@ -60,19 +62,21 @@
     "dest": "timberman.built.js",
     "lint": true,
     "files": [
-      "components/Dimension.js",
-      "components/PlayerControlled.js",
-      "components/Position.js",
-      "components/Rendered.js",
-      "components/Rotation.js",
-      "components/Sprite.js",
-      "components/SpriteAnimated.js",
-      "components/TilePosition.js",
-      "systems/PlayerControl.js",
-      "systems/RenderPixi.js",
-      "systems/SpriteAnimator.js",
-      "systems/TilePositionAnimator.js",
-      "TimberMan.js"
+      "Bootstrap.js",
+      "Components/Dimension.js",
+      "Components/PlayerControlled.js",
+      "Components/Position.js",
+      "Components/Rendered.js",
+      "Components/Rotation.js",
+      "Components/Sprite.js",
+      "Components/SpriteAnimated.js",
+      "Components/TilePosition.js",
+      "Systems/PlayerControl.js",
+      "Systems/RenderPixi.js",
+      "Systems/SpriteAnimator.js",
+      "Systems/TilePositionAnimator.js",
+      "TimberMan.js",
+      "Init.js"
     ]
   }]
 }

@@ -1,4 +1,4 @@
-var Rotation = CES.Component.extend({
+TM.Components.Rotation = CES.Component.extend({
   name: 'Rotation',
 
   // angle - degrees of rotation
@@ -10,7 +10,7 @@ var Rotation = CES.Component.extend({
   // Validates arguments passed in to constructor
   validateArguments: function(angle) {
     if(typeof angle !== 'number') {
-      'deg must be a number'
+      throw 'deg must be a number';
     }
   },
 

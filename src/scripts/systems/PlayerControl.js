@@ -1,4 +1,4 @@
-var PlayerControl = CES.System.extend({
+TM.Systems.PlayerControl = CES.System.extend({
 
   // keyBinds - key bindings object
   init: function(keyBinds) {
@@ -45,12 +45,13 @@ var PlayerControl = CES.System.extend({
     return keyState === undefined ? false : keyState;
   },
 
-  update: function(timeDelta) {
+  update: function() {
     var self = this;
 
     // Look for entities that can be controlled by player
     this.world.getEntities('PlayerControlled').forEach(function(entity) {
       var playerControlled = entity.getComponent('PlayerControlled');
+      var spriteAnimated = entity.getComponent('SpriteAnimated');
 
       // Look up relevant key states
       var isLeftPressed = self.isKeyPressed(self.keyBinds.LEFT);
@@ -58,23 +59,15 @@ var PlayerControl = CES.System.extend({
 
       // LEFT or RIGHT but not both at the same time
       if(isLeftPressed) {
-        playerControlled.move(PlayerControlled.SIDE.LEFT);
-
-        var spriteAnimated = entity.getComponent('SpriteAnimated');
-        spriteAnimated.update(ANIMATIONS.PLAYER_LEFT_CHOP);
+        playerControlled.move(TM.Components.PlayerControlled.SIDE.LEFT);
+        spriteAnimated.update(TM.ANIMATIONS.PLAYER_LEFT_CHOP);
       } else if (isRightPressed) {
-        playerControlled.move(PlayerControlled.SIDE.RIGHT);
-
-        var spriteAnimated = entity.getComponent('SpriteAnimated');
-        spriteAnimated.update(ANIMATIONS.PLAYER_RIGHT_CHOP);
+        playerControlled.move(TM.Components.PlayerControlled.SIDE.RIGHT);
+        spriteAnimated.update(TM.ANIMATIONS.PLAYER_RIGHT_CHOP);
       }
 
       //
       playerControlled.tick();
     });
-  },
-
-  updateSprite: function(entity) {
-
   }
 });
