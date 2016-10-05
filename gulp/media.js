@@ -4,7 +4,7 @@ module.exports = function(CONFIG, gulp) {
 
   // Required modules
   var browsersync = require('browser-sync');
-  //var imagemin = require('gulp-imagemin');
+  var imagemin = require('gulp-imagemin');
   var path = require('path');
   var size = require('gulp-size');
 
@@ -15,7 +15,7 @@ module.exports = function(CONFIG, gulp) {
   // Build media
   gulp.task(CONFIG.PREFIX_BUILD + taskId, function() {
     return gulp.src(src, { since: gulp.lastRun('build-media') })
-      //.pipe(imagemin(CONFIG.IMAGEMIN_OPTIONS))
+      .pipe(imagemin(CONFIG.IMAGEMIN_OPTIONS))
       .pipe(gulp.dest(dist))
       .pipe(size({ showFiles: true }))
       .pipe(browsersync.reload({ stream: true }));
