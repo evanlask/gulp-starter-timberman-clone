@@ -70,7 +70,7 @@ TM.TimberMan = CES.Class.extend({
     var player = new CES.Entity();
     player.addComponent(new TM.Components.Dimension(TM.CONFIG.PLAYER_WIDTH, TM.CONFIG.PLAYER_HEIGHT));
     player.addComponent(new TM.Components.PlayerControlled(TM.Components.PlayerControlled.SIDE.RIGHT));
-    player.addComponent(new TM.Components.Position(200, 375));
+    player.addComponent(new TM.Components.Position(TM.CONFIG.PLAYER_RIGHT_POSITION_X, 375));
     player.addComponent(new TM.Components.Rendered());
     player.addComponent(new TM.Components.SpriteAnimated(TM.ANIMATIONS.PLAYER_RIGHT_IDLE));
     this.world.addEntity(player);
