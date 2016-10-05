@@ -10,6 +10,7 @@ TM.Components.SpriteAnimated = CES.Component.extend({
     this.ticksUntilNextFrame;  // Number of game ticks until next frame is shown
     this.currentFrame;         // Currently visible frame of the animation
     this.src;                  // Visible frame
+    this.cycles;               // Number of times the animation has looped/cycles
 
     this.update(animationDefinition);
   },
@@ -40,15 +41,20 @@ TM.Components.SpriteAnimated = CES.Component.extend({
     this.ticksUntilNextFrame = this.rate;
     this.currentFrame = 0;
     this.src = this.frames[this.currentFrame];
+    this.cycles = 0;
   },
 
   // Called by the SpriteAnimator system this function determines which frame of the animation should be visible
   tick: function() {
     if(this.ticksUntilNextFrame === 0) {
+      // Show the next frame;
       if(this.currentFrame < this.frames.length - 1) {
         this.currentFrame++;
-      } else {
+      }
+      // Loop back around to the first frame
+      else {
         this.currentFrame = 0;
+        this.cycles++;
       }
       this.src = this.frames[this.currentFrame];
       this.ticksUntilNextFrame = this.rate;

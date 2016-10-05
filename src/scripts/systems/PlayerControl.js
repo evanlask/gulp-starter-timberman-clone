@@ -3,6 +3,7 @@ TM.Systems.PlayerControl = CES.System.extend({
   // keyBinds - key bindings object
   init: function(keyBinds) {
     this._super();
+
     this.keyBinds = keyBinds;
     this.keysPressed = {};
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -52,6 +53,7 @@ TM.Systems.PlayerControl = CES.System.extend({
     this.world.getEntities('PlayerControlled').forEach(function(entity) {
       var playerControlled = entity.getComponent('PlayerControlled');
       var spriteAnimated = entity.getComponent('SpriteAnimated');
+      var position = entity.getComponent('Position');
 
       // Look up relevant key states
       var isLeftPressed = self.isKeyPressed(self.keyBinds.LEFT);
@@ -59,15 +61,47 @@ TM.Systems.PlayerControl = CES.System.extend({
 
       // LEFT or RIGHT but not both at the same time
       if(isLeftPressed) {
-        playerControlled.move(TM.Components.PlayerControlled.SIDE.LEFT);
+        // Move player to left side
+        position.x = TM.CONFIG.PLAYER_LEFT_POSITION_X;
+
+        // Keep track of player side
+        playerControlled.side = TM.Components.PlayerControlled.SIDE.LEFT;
+
+        // Play left chop animation
         spriteAnimated.update(TM.ANIMATIONS.PLAYER_LEFT_CHOP);
+
+        // Player is chopping
+        playerControlled.isChopping = true;
       } else if (isRightPressed) {
-        playerControlled.move(TM.Components.PlayerControlled.SIDE.RIGHT);
+        // Move player to right side
+        position.x = TM.CONFIG.PLAYER_RIGHT_POSITION_X;
+
+        // Keep track of player side
+        playerControlled.side = TM.Components.PlayerControlled.SIDE.RIGHT;
+
+        // Play right chop animation
         spriteAnimated.update(TM.ANIMATIONS.PLAYER_RIGHT_CHOP);
+
+        // Indicate chopping animation has started
+        playerControlled.isChopping = true;
       }
 
-      //
-      playerControlled.tick();
+      // Wait for chopping animation to complete one cycle
+      if(playerControlled.isChopping === true && spriteAnimated.cycles > 0) {
+        // Is the player on the left side?
+        if(playerControlled.side === TM.Components.PlayerControlled.SIDE.LEFT) {
+          // Restore left idle animation
+          spriteAnimated.update(TM.ANIMATIONS.PLAYER_LEFT_IDLE);
+        }
+        // Is the player on the right side?
+        else if (playerControlled.side === TM.Components.PlayerControlled.SIDE.RIGHT) {
+          // Resotre right idle animation
+          spriteAnimated.update(TM.ANIMATIONS.PLAYER_RIGHT_IDLE);
+        }
+
+        // Player is done chopping
+        playerControlled.isChopping = false;
+      }
     });
   }
 });

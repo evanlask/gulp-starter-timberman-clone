@@ -34,9 +34,9 @@ TM.TimberMan = CES.Class.extend({
     this.world = new CES.World();
 
     // Initialize systems (act on entities in the world)
-    this.world.addSystem(new TM.Systems.PlayerControl(TM.CONFIG.KEY_BINDS));
     this.world.addSystem(new TM.Systems.SpriteAnimator());
     this.world.addSystem(new TM.Systems.TilePositionAnimator());
+    this.world.addSystem(new TM.Systems.PlayerControl(TM.CONFIG.KEY_BINDS));
     this.world.addSystem(renderSystem);
 
     // Start game
@@ -69,7 +69,7 @@ TM.TimberMan = CES.Class.extend({
   createPlayerEntities: function() {
     var player = new CES.Entity();
     player.addComponent(new TM.Components.Dimension(TM.CONFIG.PLAYER_WIDTH, TM.CONFIG.PLAYER_HEIGHT));
-    player.addComponent(new TM.Components.PlayerControlled(TM.CONFIG.PLAYER_TICKS_BETWEEN_ACTIONS));
+    player.addComponent(new TM.Components.PlayerControlled(TM.Components.PlayerControlled.SIDE.RIGHT));
     player.addComponent(new TM.Components.Position(200, 375));
     player.addComponent(new TM.Components.Rendered());
     player.addComponent(new TM.Components.SpriteAnimated(TM.ANIMATIONS.PLAYER_RIGHT_IDLE));
